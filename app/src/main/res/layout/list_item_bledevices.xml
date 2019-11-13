@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edu.teco.dustradar.layout.CheckableLinearLayout
+<edu.teco.gamifieddustradar.layout.CheckableLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -27,4 +27,4 @@
         android:gravity="center_vertical"
         android:id="@+id/list_item_bledevices_deviceaddress" />
 
-</edu.teco.dustradar.layout.CheckableLinearLayout>
+</edu.teco.gamifieddustradar.layout.CheckableLinearLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DustRadar</string>
+    <string name="app_name">Duster</string>
     <string name="action_settings">Settings</string>
     <string name="action_transmit">Transmit Data</string>
     <string name="action_clear">Clear Data</string>

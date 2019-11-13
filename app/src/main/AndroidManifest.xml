@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.teco.dustradar">
+    package="edu.teco.gamifieddustradar">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,10 +27,10 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".GameOverActivity"></activity>
-        <activity android:name=".GameStartActivity" />
-        <activity android:name=".GameView" />
-        <activity android:name=".IntroMainActivity">
+        <activity android:name="edu.teco.gamifieddustradar.GameOverActivity"></activity>
+        <activity android:name="edu.teco.gamifieddustradar.GameStartActivity" />
+        <activity android:name="edu.teco.gamifieddustradar.GameView" />
+        <activity android:name="edu.teco.gamifieddustradar.IntroMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,48 +38,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
-        <activity
-            android:name=".blebridge.BLEBridge"
+            android:name="edu.teco.gamifieddustradar.blebridge.BLEBridge"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_blebridge"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".bluetooth.BLEService"
+            android:name="edu.teco.gamifieddustradar.bluetooth.BLEService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".gps.GPSService"
+            android:name="edu.teco.gamifieddustradar.gps.GPSService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".data.DataService"
+            android:name="edu.teco.gamifieddustradar.data.DataService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".http.HTTPService"
+            android:name="edu.teco.gamifieddustradar.http.HTTPService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".http.HTTPIntent"
+            android:name="edu.teco.gamifieddustradar.http.HTTPIntent"
             android:exported="false" />
         <service
-            android:name=".blebridge.KeepAliveManager"
+            android:name="edu.teco.gamifieddustradar.blebridge.KeepAliveManager"
             android:enabled="true"
             android:exported="false" />
     </application>
