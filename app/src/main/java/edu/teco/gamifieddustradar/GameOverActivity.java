@@ -1,9 +1,6 @@
 package edu.teco.gamifieddustradar;
 
 import android.support.v7.app.AppCompatActivity;
-
-//import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,8 +29,6 @@ public class GameOverActivity extends AppCompatActivity {
         exitGame = (Button) findViewById(R.id.exit_game_btn);
         displayScore = (TextView) findViewById(R.id.displayScore);
         displayHighScore = (TextView) findViewById(R.id.displayHighScore);
-        
-        
         
         
         startGameAgain.setOnClickListener(new View.OnClickListener() {
