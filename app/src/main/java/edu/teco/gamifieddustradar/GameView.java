@@ -26,7 +26,7 @@ public class GameView extends View {
     private int greenParticleX, greenParticleY, greenParticleSpeed = 14;
     private int blueParticleX, blueParticleY, blueParticleSpeed = 22;
     private int blackParticleX, blackParticleY, blackParticleSpeed = 17;
-    private int bombX, bombY, bombSpeed = 20;
+    private int bombX = 1500, bombY=500 , bombSpeed = 10;
     private Bitmap particles[];
     
     private int firstCloudX, firstCloudY, firstCloudSpeed = 4;
@@ -35,7 +35,7 @@ public class GameView extends View {
     private int fourthCloudX, fourthCloudY, fourthCloudSpeed = 5;
     private Bitmap clouds[];
     
-    private int score, lifeCounter, levelCounter = 1 ;
+    private int score, lifeCounter, levelCounter;
     
     private boolean touch = false;
     private Bitmap backgroundImageLevel1;
@@ -55,8 +55,8 @@ public class GameView extends View {
     
     
     
-    
     private GameStartActivity theGameActivity = new GameStartActivity() ;
+    private boolean isBomb = false;
     
     public GameView(Context context) {
         super(context);
@@ -152,7 +152,6 @@ public class GameView extends View {
         }
         
         // Draw level bar
-        
         if (levelBarIconBitmapX < canvasWidth-180){
             levelBarIconBitmapX = (levelBarIconBitmapX + (float)canvasWidth/(2200*2)); // about 2 minute
             levelBarColorEndLineX = (levelBarColorEndLineX + (float)canvasWidth/(2200*2)); // about 2 minute
@@ -160,6 +159,10 @@ public class GameView extends View {
             levelBarColorEndLineX = 0;
             levelBarIconBitmapX = 0;
             ++levelCounter;
+            score = score + 100;
+            lifeCounter = 3;
+            theGameActivity.toastText.setText("+100P  "+"Level= "+levelCounter );
+            theGameActivity.gameToast.show();
         }
         
         // Draw a line on
@@ -228,6 +231,8 @@ public class GameView extends View {
         // Green Particle
         greenParticleX = greenParticleX - greenParticleSpeed;
         if(hitParticleChecker(greenParticleX,greenParticleY)){
+            theGameActivity.toastText.setText("+20P" );
+            theGameActivity.gameToast.show();
             score = score + 20;
             greenParticleX = -90;
         }
@@ -240,6 +245,8 @@ public class GameView extends View {
         // Blue Particle
         blueParticleX = blueParticleX - blueParticleSpeed;
         if(hitParticleChecker(blueParticleX,blueParticleY)){
+            theGameActivity.toastText.setText("+10P" );
+            theGameActivity.gameToast.show();
             score = score + 10;
             blueParticleX = -90;
         }
@@ -265,15 +272,19 @@ public class GameView extends View {
         }
         
         if(hitParticleChecker(blackParticleX,blackParticleY)){
-            blackParticleX = -90;
+            blackParticleX = -100;
+            theGameActivity.toastText.setText("Oops!!");
+            theGameActivity.gameToast.show();
             lifeCounter--;
+            theGameActivity.vibrator(80);
+    
             if(lifeCounter == 0){
                 //Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
                 theGameActivity.onGameOver();
             }
         }
         if(blackParticleX < 0 ){
-            blackParticleX = canvasWidth + 19;
+            blackParticleX = canvasWidth + 2000;
             blackParticleY = (int) Math.floor(Math.random() * (maxDusterY - minDusterY)) + minDusterY + 100;
         }
         canvas.drawBitmap(particles[2],blackParticleX, blackParticleY,null);
@@ -281,26 +292,53 @@ public class GameView extends View {
     
         // Bomb
         bombX = bombX - bombSpeed;
-        if(hitParticleChecker(bombX,bombY)){
+        
+     /*   if(hitParticleChecker(bombX,bombY)){
             blackParticleX = -90;
                 //Toast.makeText(getContext(), "Game Over", Toast.LENGTH_SHORT).show();
                 theGameActivity.onGameOver();
-        }
-        if(bombX < 0  ){
-            bombX = canvasWidth + 19;
-            bombY = (int) Math.floor(Math.random() * (maxDusterY - minDusterY)) + minDusterY + 100;
+        }*/
+        if(  bombX < dusterX  ){
+            theGameActivity.vibrator(120);
+            canvas.drawBitmap(particles[4],bombX, bombY,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY + 300,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY+ 600,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY+ 900,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY+ 1200,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY+ 1500,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY+ 1800,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 300,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 600,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 900,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 1200,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 1500,null);
+            canvas.drawBitmap(particles[4],dusterX, dusterY- 1800,null);
+             theGameActivity.onGameOver();
+    
+            // bombX = canvasWidth + 700;
+            //bombY = (int) Math.floor(Math.random() * (maxDusterY - minDusterY)) + minDusterY + 100;
         }
          if( BLEService.buttonPress == true ){
             BLEService.buttonPress = false;
-            canvas.drawBitmap(particles[4],bombX, bombY,null);
-    
-            bombX = canvasWidth + 19;
-            bombY = (int) Math.floor(Math.random() * (maxDusterY - minDusterY)) + minDusterY + 100;
-        }
-        
+            if (bombX<canvasWidth){
+                canvas.drawBitmap(particles[4],bombX, bombY,null);
+                theGameActivity.toastText.setText("+5P" );
+                theGameActivity.gameToast.show();
+                score = score + 5;
+                bombX = canvasWidth + 700;
+                bombY = (int) Math.floor(Math.random() * (maxDusterY - minDusterY)) + minDusterY + 100;
+                if(isBomb){
+                    theGameActivity.vibrator(50);
+                    isBomb = false;
+                }
+            }
+         }
         
         canvas.drawBitmap(particles[3],bombX, bombY,null);
-    
+        if (bombX<canvasWidth) {
+            isBomb = true;
+        }
         canvas.drawText("Level : " + levelCounter,50,130, levelCounterPaint);
         canvas.drawText("Score : " + score,470,130, scorePaint);
         
@@ -315,8 +353,6 @@ public class GameView extends View {
                 canvas.drawBitmap(life[1], x, y, null );
             }
         }
-   
-        
     }
     
     public boolean hitParticleChecker(int x , int y){
@@ -338,5 +374,6 @@ public class GameView extends View {
     public int getScore() {
         return this.score;
     }
+   
     
 }
