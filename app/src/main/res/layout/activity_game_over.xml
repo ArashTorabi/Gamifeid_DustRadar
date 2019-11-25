@@ -27,6 +27,8 @@
         android:layout_width="263dp"
         android:layout_height="46dp"
         android:background="#00C70E0E"
+        android:clickable="true"
+        android:hapticFeedbackEnabled="true"
         android:text="Highscore"
         android:textAlignment="center"
         android:textAllCaps="false"
@@ -44,14 +46,16 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:hapticFeedbackEnabled="true"
         android:text="Game Over"
         android:textColor="#FF0000"
         android:textSize="60sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/gameOverIcon"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/gameOverIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.207" />
 
@@ -87,9 +91,10 @@
         app:layout_constraintVertical_bias="0.046" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/gameOverIcon"
         android:layout_width="344dp"
         android:layout_height="272dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/play_again_btn"
         app:layout_constraintHorizontal_bias="0.503"
