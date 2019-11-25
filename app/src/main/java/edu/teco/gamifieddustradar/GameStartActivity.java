@@ -2,6 +2,7 @@ package edu.teco.gamifieddustradar;
 
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.Context;
@@ -10,6 +11,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -31,7 +37,10 @@ public class GameStartActivity extends AppCompatActivity {
     private final  static long Interval = 32;
     boolean doubleBackToExitPressedOnce = false;
     private String deviceAddress;
-    private String lastData = null;
+    private Vibrator myVibrator;
+     View layout;
+     Toast gameToast;
+     TextView toastText;
     
     
     @Override
@@ -62,6 +71,19 @@ public class GameStartActivity extends AppCompatActivity {
                 });
             }
         }, 0,Interval);
+    
+        LayoutInflater inflater = getLayoutInflater();
+        layout = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        toastText = (TextView) layout.findViewById(R.id.text);
+        //toastText.setText("UPS!");
+    
+        gameToast = new Toast(getApplicationContext());
+        gameToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        gameToast.setDuration(Toast.LENGTH_SHORT);
+        gameToast.setView(layout);
+    
+        //gameToast.show();
         
     }
     
@@ -153,6 +175,10 @@ public class GameStartActivity extends AppCompatActivity {
         }
     }
     
+    public void vibrator(long myDuration) {
+        myVibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        myVibrator.vibrate(myDuration);
+    }
     
     private void stopServices() {
         KeepAliveManager.stopService(this);
@@ -180,7 +206,7 @@ public class GameStartActivity extends AppCompatActivity {
             if (BLEService.BROADCAST_BLESERVICE_DATA_AVAILABLE.equals(action)) {
                 String address = intent.getStringExtra(BLEService.EXTRA_BLESERVICE_ADDRESS);
                 if (deviceAddress.equals(address)) {
-                    lastData = intent.getStringExtra(BLEService.EXTRA_BLESERVICE_DATA);
+                    //lastData = intent.getStringExtra(BLEService.EXTRA_BLESERVICE_DATA);
                     //bleConnectionStatus = "Connected";
                     //updateView();
                 }
